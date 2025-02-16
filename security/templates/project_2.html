@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigenère Cipher</title>
+</head>
+<body>
+    <h1>Vigenère Cipher Encryption and Decryption</h1>
+    
+    <form method="POST">
+        <label for="text">Enter text (only alphabets):</label>
+        <input type="text" id="text" name="text" required><br><br>
+
+        <label for="key">Enter key (only alphabets):</label>
+        <input type="text" id="key" name="key" required><br><br>
+
+        <button type="submit" name="action" value="Encrypt">Encrypt</button>
+        <button type="submit" name="action" value="Decrypt">Decrypt</button>
+    </form>
+    
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>
