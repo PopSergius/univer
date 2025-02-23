@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Метод простої перестановки</title>
+</head>
+<body>
+    <h1>Шифрування/Дешифрування методом простої перестановки</h1>
+    
+    <form method="POST">
+        <label for="text">Текст:</label>
+        <input type="text" id="text" name="text" required><br><br>
+
+        <label for="order">Порядок перестановки (через кому):</label>
+        <input type="text" id="order" name="order" required><br><br>
+
+        <label for="action">Оберіть дію:</label><br>
+        <input type="radio" id="encrypt" name="action" value="Encrypt" required>
+        <label for="encrypt">Шифрування</label><br>
+        <input type="radio" id="decrypt" name="action" value="Decrypt">
+        <label for="decrypt">Дешифрування</label><br><br>
+
+        <button type="submit">Виконати</button>
+    </form>
+    
+    {% if result is not none %}
+        <h2>Результат:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>

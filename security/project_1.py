@@ -3,6 +3,26 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
+# Функція для шифрування методом Цезаря
+def caesar_encrypt(plaintext, shift):
+    result = ""
+    for char in plaintext:
+        if char.isalpha():
+            shift_base = (
+                65 if char.isupper() else 97
+            )  # Вибір бази для великої чи малої літери
+            encrypted_char = chr((ord(char) - shift_base + shift) % 26 + shift_base)
+            result += encrypted_char
+        else:
+            result += char
+    return result
+
+
+# Функція для дешифрування методом Цезаря
+def caesar_decrypt(ciphertext, shift):
+    return caesar_encrypt(ciphertext, -shift)
+
+
 def generate_playfair_square(key):
     key = key.upper().replace("J", "I")
     alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
@@ -113,11 +133,19 @@ def index():
         text = request.form["text"]
         key = request.form["key"]
         action = request.form["action"]
+        cipher_type = request.form["cipher_type"]  # Додано вибір шифру
 
-        if action == "Encrypt":
-            result_text = playfair_encrypt(text, key)
-        elif action == "Decrypt":
-            result_text = playfair_decrypt(text, key)
+        if cipher_type == "Playfair":
+            if action == "Encrypt":
+                result_text = playfair_encrypt(text, key)
+            elif action == "Decrypt":
+                result_text = playfair_decrypt(text, key)
+        elif cipher_type == "Caesar":
+            shift = int(request.form["shift"])  # Отримуємо зсув
+            if action == "Encrypt":
+                result_text = caesar_encrypt(text, shift)
+            elif action == "Decrypt":
+                result_text = caesar_decrypt(text, shift)
 
     return render_template("project_1.html", result_text=result_text)
 

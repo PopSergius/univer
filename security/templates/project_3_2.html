@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифрування/Дешифрування методом маршрутної перестановки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Шифрування/Дешифрування</h1>
+        <label for="textInput">Введіть текст:</label>
+        <textarea id="textInput" placeholder="Введіть повідомлення..."></textarea>
+
+        <label for="operation">Оберіть операцію:</label>
+        <select id="operation">
+            <option value="encrypt">Шифрування</option>
+            <option value="decrypt">Дешифрування</option>
+        </select>
+
+        <button onclick="processText()">Виконати операцію</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        async function processText() {
+            const text = document.getElementById('textInput').value;
+            const operation = document.getElementById('operation').value;
+
+            const response = await fetch(`http://127.0.0.1:5000/${operation}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: text
+                })
+            });
+
+            const result = await response.json();
+            const resultText = operation === 'encrypt' ? result.encrypted : result.decrypted;
+
+            document.getElementById('result').textContent = resultText || "Помилка при виконанні операції.";
+        }
+    </script>
+</body>
+</html>

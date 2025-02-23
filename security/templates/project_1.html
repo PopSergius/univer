@@ -3,16 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playfair Cipher Encryption/Decryption</title>
+    <title>Cipher Encryption/Decryption</title>
 </head>
 <body>
-    <h1>Playfair Cipher Encryption/Decryption</h1>
+    <h1>Cipher Encryption/Decryption</h1>
     <form method="POST">
+        <label for="cipher_type">Choose cipher:</label>
+        <select id="cipher_type" name="cipher_type" required>
+            <option value="Playfair">Playfair</option>
+            <option value="Caesar">Caesar</option>
+        </select><br><br>
+
         <label for="text">Enter text:</label>
         <input type="text" id="text" name="text" required><br><br>
 
         <label for="key">Enter encryption key:</label>
-        <input type="text" id="key" name="key" required><br><br>
+        <input type="text" id="key" name="key"><br><br>
+
+        <!-- Для шифру Цезаря додаємо поле для зсуву -->
+        <div id="caesar_shift">
+            <label for="shift">Enter shift (for Caesar):</label>
+            <input type="number" id="shift" name="shift"><br><br>
+        </div>
 
         <button type="submit" name="action" value="Encrypt">Encrypt</button>
         <button type="submit" name="action" value="Decrypt">Decrypt</button>
