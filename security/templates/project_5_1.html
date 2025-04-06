@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>RSA + AES Шифрування</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .result {
+            background: #f0f0f0;
+            padding: 10px;
+            white-space: pre-wrap;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Шифрування RSA + AES</h1>
+    <form method="POST">
+        <label>Прізвище:</label>
+        <input type="text" name="surname" required>
+
+        <label>Повідомлення:</label>
+        <textarea name="message" rows="3" required></textarea>
+
+        <button type="submit">Зашифрувати та Розшифрувати</button>
+    </form>
+
+    {% if results %}
+        <h2>Результати</h2>
+        <div class="result">
+            <strong>Прізвище (ввід):</strong> {{ results.surname_plain }}<br>
+            <strong>Прізвище (зашифроване RSA):</strong><br>{{ results.surname_encrypted }}<br>
+            <strong>Прізвище (розшифроване):</strong> {{ results.surname_decrypted }}
+        </div>
+
+        <div class="result">
+            <strong>Повідомлення (ввід):</strong> {{ results.message_plain }}<br>
+            <strong>Повідомлення (зашифроване AES):</strong><br>{{ results.message_encrypted }}<br>
+            <strong>Повідомлення (розшифроване):</strong> {{ results.message_decrypted }}
+        </div>
+
+        <div class="result">
+            <strong>AES ключ (зашифрований RSA):</strong><br>{{ results.aes_key_encrypted }}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
